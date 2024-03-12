@@ -1,0 +1,203 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Yomari\\Downloads\\test\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\test\\test\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\test\\test\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\test\\test\\models\\applicationrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\models\\applicationrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\test\\test\\models\\appilicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\models\\appilicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\test\\test\\dtos\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\dtos\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\test\\test\\dtos\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\dtos\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\test\\test\\dtos\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\dtos\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\test\\test\\dtos\\registerresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\dtos\\registerresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\test\\test\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\test\\test\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\test\\test\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\test\\test\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "test\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\Yomari\\Downloads\\test\\test\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "test\\Controllers\\AuthController.cs",
+              "ViewState": "AQIAAGYAAAAAAAAAAAAAAHMAAAB4AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-12T07:30:20.223Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ApplicationRole.cs",
+              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\test\\test\\Models\\ApplicationRole.cs",
+              "RelativeDocumentMoniker": "test\\Models\\ApplicationRole.cs",
+              "ToolTip": "C:\\Users\\Yomari\\Downloads\\test\\test\\Models\\ApplicationRole.cs",
+              "RelativeToolTip": "test\\Models\\ApplicationRole.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-12T15:36:44.522Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "LoginResponse.cs",
+              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\test\\test\\Dtos\\LoginResponse.cs",
+              "RelativeDocumentMoniker": "test\\Dtos\\LoginResponse.cs",
+              "ToolTip": "C:\\Users\\Yomari\\Downloads\\test\\test\\Dtos\\LoginResponse.cs",
+              "RelativeToolTip": "test\\Dtos\\LoginResponse.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-12T07:40:22.062Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "RegisterRequest.cs",
+              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\test\\test\\Dtos\\RegisterRequest.cs",
+              "RelativeDocumentMoniker": "test\\Dtos\\RegisterRequest.cs",
+              "ToolTip": "C:\\Users\\Yomari\\Downloads\\test\\test\\Dtos\\RegisterRequest.cs",
+              "RelativeToolTip": "test\\Dtos\\RegisterRequest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-12T07:40:25.003Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LoginRequest.cs",
+              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\test\\test\\Dtos\\LoginRequest.cs",
+              "RelativeDocumentMoniker": "test\\Dtos\\LoginRequest.cs",
+              "ToolTip": "C:\\Users\\Yomari\\Downloads\\test\\test\\Dtos\\LoginRequest.cs",
+              "RelativeToolTip": "test\\Dtos\\LoginRequest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-12T07:40:19.54Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\test\\test\\Program.cs",
+              "RelativeDocumentMoniker": "test\\Program.cs",
+              "ToolTip": "C:\\Users\\Yomari\\Downloads\\test\\test\\Program.cs",
+              "RelativeToolTip": "test\\Program.cs",
+              "ViewState": "AQIAAFcAAAAAAAAAAAAAAEoAAABMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-12T07:30:20.219Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\test\\test\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "test\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\Yomari\\Downloads\\test\\test\\appsettings.Development.json",
+              "RelativeToolTip": "test\\appsettings.Development.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-03-12T07:30:20.209Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AppilicationUser.cs",
+              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\test\\test\\Models\\AppilicationUser.cs",
+              "RelativeDocumentMoniker": "test\\Models\\AppilicationUser.cs",
+              "ToolTip": "C:\\Users\\Yomari\\Downloads\\test\\test\\Models\\AppilicationUser.cs",
+              "RelativeToolTip": "test\\Models\\AppilicationUser.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-12T10:42:04.667Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\test\\test\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "test\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\Yomari\\Downloads\\test\\test\\Properties\\launchSettings.json",
+              "RelativeToolTip": "test\\Properties\\launchSettings.json",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-03-12T07:30:20.041Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "RegisterResponse.cs",
+              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\test\\test\\Dtos\\RegisterResponse.cs",
+              "RelativeDocumentMoniker": "test\\Dtos\\RegisterResponse.cs",
+              "ToolTip": "C:\\Users\\Yomari\\Downloads\\test\\test\\Dtos\\RegisterResponse.cs",
+              "RelativeToolTip": "test\\Dtos\\RegisterResponse.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-12T10:09:55.533Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\test\\test\\appsettings.json",
+              "RelativeDocumentMoniker": "test\\appsettings.json",
+              "ToolTip": "C:\\Users\\Yomari\\Downloads\\test\\test\\appsettings.json",
+              "RelativeToolTip": "test\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-03-12T07:30:20.215Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
