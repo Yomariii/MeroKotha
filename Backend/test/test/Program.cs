@@ -1,17 +1,13 @@
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Bson.Serialization;
+using AspNetCore.Identity.MongoDbCore.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MongoDB.Driver;
+using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using AspNetCore.Identity.MongoDbCore.Extensions;
-using AspNetCore.Identity.MongoDbCore.Infrastructure;
-
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
-
 using test.Models;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
-using test.DataService;
-using test.Hubs;
-using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,14 +15,15 @@ BsonSerializer.RegisterSerializer(new GuidSerializer(MongoDB.Bson.BsonType.Strin
 BsonSerializer.RegisterSerializer(new DateTimeSerializer(MongoDB.Bson.BsonType.String));
 BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(MongoDB.Bson.BsonType.String));
 
+
 var mongoDbIdentityConfig = new MongoDbIdentityConfiguration
 {
     MongoDbSettings = new MongoDbSettings
     {
         ConnectionString = "mongodb://localhost:27017",
 
-        //ConnectionString = "mongodb+srv://e_e:Hulkbuster_12@gg.mg0h9lb.mongodb.net/",
-        DatabaseName = "newone"
+        //ConnectionString = "",
+        DatabaseName = "testmongo"
     },
     IdentityOptionsAction = options =>
     {
@@ -55,14 +52,31 @@ builder.Services.AddCors(options =>
                           .AllowAnyMethod());
 });
 
+// Replace all occurrences of 'services' with 'builder.Services'
+// Replace all occurrences of 'app' with 'builder'
+builder.Services.Configure<MongoDbIdentityConfiguration>(options =>
+{
+    options.MongoDbSettings = mongoDbIdentityConfig.MongoDbSettings;
+    options.IdentityOptionsAction = mongoDbIdentityConfig.IdentityOptionsAction;
+});
+
+builder.Services.AddSingleton<IMongoDatabase>(serviceProvider =>
+{
+    var settings = mongoDbIdentityConfig.MongoDbSettings;
+    var client = new MongoClient(settings.ConnectionString);
+    return client.GetDatabase(settings.DatabaseName);
+});
+// ...
+
+builder.Services.AddDataProtection();
+// ...
+// ...
 
 
 builder.Services.AddAuthentication(x =>
 {
-    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
-
+x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(x =>
 {
     x.RequireHttpsMetadata = true;
@@ -75,7 +89,7 @@ builder.Services.AddAuthentication(x =>
         ValidateLifetime = true,
         ValidIssuer = "http://localhost:7154",
         ValidAudience = "http://localhost:7154",
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("why is this shit not working like come on man")),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("q209c nwojnq2uorycqonfjlawfq3p489crn oqc[ldwwfchlf njkf b")),
         ClockSkew = TimeSpan.Zero
 
     };
@@ -88,13 +102,11 @@ builder.Services.ConfigureMongoDbIdentity<ApplicationUser, ApplicationRole, Guid
     .AddRoleManager<RoleManager<ApplicationRole>>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddSignalR();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddSingleton<SharedDb>();
 
 var app = builder.Build();
 
@@ -106,8 +118,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.MapHub<ChatHub>("/Chat");
 
 app.UseCors("AllowMyOrigin"); // Use the CORS policy
 
