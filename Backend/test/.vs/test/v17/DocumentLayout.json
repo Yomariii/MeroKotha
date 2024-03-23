@@ -3,36 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\hmmmm\\merokotha\\backend\\test\\test\\models\\rentalproperty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\models\\rentalproperty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\hmmmm\\merokotha\\backend\\test\\test\\controllers\\rentalpropertycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\controllers\\rentalpropertycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\hmmmm\\merokotha\\backend\\test\\test\\models\\applicationrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\models\\applicationrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\hmmmm\\merokotha\\backend\\test\\test\\models\\appilicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\models\\appilicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\hmmmm\\merokotha\\backend\\test\\test\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\hmmmm\\merokotha\\backend\\test\\test\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\hmmmm\\merokotha\\backend\\test\\test\\dtos\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\dtos\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\hmmmm\\merokotha\\backend\\test\\test\\dtos\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\dtos\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\hmmmm\\merokotha\\backend\\test\\test\\controllers\\rentalpropertycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\controllers\\rentalpropertycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\hmmmm\\merokotha\\backend\\test\\test\\dtos\\rentalrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -41,6 +17,34 @@
     {
       "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\hmmmm\\merokotha\\backend\\test\\test\\dtos\\rolerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\dtos\\rolerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\hmmmm\\merokotha\\backend\\test\\test\\models\\appilicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\models\\appilicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\hmmmm\\merokotha\\backend\\test\\test\\models\\applicationrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\models\\applicationrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\hmmmm\\merokotha\\backend\\test\\test\\models\\userconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\models\\userconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\hmmmm\\merokotha\\backend\\test\\test\\models\\rentalproperty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\models\\rentalproperty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\hmmmm\\merokotha\\backend\\test\\test\\dtos\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\dtos\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\hmmmm\\merokotha\\backend\\test\\test\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|c:\\users\\yomari\\downloads\\hmmmm\\merokotha\\backend\\test\\test\\dtos\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABD99166-E4C7-4BE2-9CD9-FC1DAA94D76A}|test\\test.csproj|solutionrelative:test\\dtos\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -50,33 +54,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 313,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AppilicationUser.cs",
-              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Models\\AppilicationUser.cs",
-              "RelativeDocumentMoniker": "test\\Models\\AppilicationUser.cs",
-              "ToolTip": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Models\\AppilicationUser.cs",
-              "RelativeToolTip": "test\\Models\\AppilicationUser.cs",
+              "DocumentIndex": 6,
+              "Title": "UserConnection.cs",
+              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Models\\UserConnection.cs",
+              "RelativeDocumentMoniker": "test\\Models\\UserConnection.cs",
+              "ToolTip": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Models\\UserConnection.cs",
+              "RelativeToolTip": "test\\Models\\UserConnection.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T20:26:38.377Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "LoginRequest.cs",
-              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Dtos\\LoginRequest.cs",
-              "RelativeDocumentMoniker": "test\\Dtos\\LoginRequest.cs",
-              "ToolTip": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Dtos\\LoginRequest.cs",
-              "RelativeToolTip": "test\\Dtos\\LoginRequest.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T20:23:50.784Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-22T16:11:02.09Z"
             },
             {
               "$type": "Document",
@@ -86,79 +76,50 @@
               "RelativeDocumentMoniker": "test\\Controllers\\RentalPropertyController.cs",
               "ToolTip": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Controllers\\RentalPropertyController.cs",
               "RelativeToolTip": "test\\Controllers\\RentalPropertyController.cs",
-              "ViewState": "AQIAAE4AAAAAAAAAAAAAAHoAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAHoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T20:01:48.029Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "RentalRequest.cs",
-              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Dtos\\RentalRequest.cs",
-              "RelativeDocumentMoniker": "test\\Dtos\\RentalRequest.cs",
-              "ToolTip": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Dtos\\RentalRequest.cs",
-              "RelativeToolTip": "test\\Dtos\\RentalRequest.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T19:38:28.175Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "RentalProperty.cs",
-              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Models\\RentalProperty.cs",
-              "RelativeDocumentMoniker": "test\\Models\\RentalProperty.cs",
-              "ToolTip": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Models\\RentalProperty.cs",
-              "RelativeToolTip": "test\\Models\\RentalProperty.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T19:28:33.945Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-14T20:01:48.029Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Program.cs",
-              "RelativeDocumentMoniker": "test\\Program.cs",
-              "ToolTip": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Program.cs",
-              "RelativeToolTip": "test\\Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAH8AAAAKAAAA",
+              "Title": "AppilicationUser.cs",
+              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Models\\AppilicationUser.cs",
+              "RelativeDocumentMoniker": "test\\Models\\AppilicationUser.cs",
+              "ToolTip": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Models\\AppilicationUser.cs",
+              "RelativeToolTip": "test\\Models\\AppilicationUser.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T16:05:00.171Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-14T20:26:38.377Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "AuthController.cs",
               "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "test\\Controllers\\AuthController.cs",
               "ToolTip": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Controllers\\AuthController.cs",
               "RelativeToolTip": "test\\Controllers\\AuthController.cs",
-              "ViewState": "AQIAAF0AAAAAAAAAAAAAAHMAAACEAAAA",
+              "ViewState": "AQIAAIIAAAAAAAAAAADwv5IAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-14T20:23:47.757Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "RoleRequest.cs",
-              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Dtos\\RoleRequest.cs",
-              "RelativeDocumentMoniker": "test\\Dtos\\RoleRequest.cs",
-              "ToolTip": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Dtos\\RoleRequest.cs",
-              "RelativeToolTip": "test\\Dtos\\RoleRequest.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "DocumentIndex": 7,
+              "Title": "RentalProperty.cs",
+              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Models\\RentalProperty.cs",
+              "RelativeDocumentMoniker": "test\\Models\\RentalProperty.cs",
+              "ToolTip": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Models\\RentalProperty.cs",
+              "RelativeToolTip": "test\\Models\\RentalProperty.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T19:41:01.196Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-14T19:28:33.945Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "ApplicationRole.cs",
               "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Models\\ApplicationRole.cs",
               "RelativeDocumentMoniker": "test\\Models\\ApplicationRole.cs",
@@ -166,12 +127,59 @@
               "RelativeToolTip": "test\\Models\\ApplicationRole.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T15:10:42.042Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-14T15:10:42.042Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
+              "Title": "RoleRequest.cs",
+              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Dtos\\RoleRequest.cs",
+              "RelativeDocumentMoniker": "test\\Dtos\\RoleRequest.cs",
+              "ToolTip": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Dtos\\RoleRequest.cs",
+              "RelativeToolTip": "test\\Dtos\\RoleRequest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T19:41:01.196Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RentalRequest.cs",
+              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Dtos\\RentalRequest.cs",
+              "RelativeDocumentMoniker": "test\\Dtos\\RentalRequest.cs",
+              "ToolTip": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Dtos\\RentalRequest.cs",
+              "RelativeToolTip": "test\\Dtos\\RentalRequest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T19:38:28.175Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LoginRequest.cs",
+              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Dtos\\LoginRequest.cs",
+              "RelativeDocumentMoniker": "test\\Dtos\\LoginRequest.cs",
+              "ToolTip": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Dtos\\LoginRequest.cs",
+              "RelativeToolTip": "test\\Dtos\\LoginRequest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T20:23:50.784Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Program.cs",
+              "RelativeDocumentMoniker": "test\\Program.cs",
+              "ToolTip": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Program.cs",
+              "RelativeToolTip": "test\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAH8AAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T16:05:00.171Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "LoginResponse.cs",
               "DocumentMoniker": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\Dtos\\LoginResponse.cs",
               "RelativeDocumentMoniker": "test\\Dtos\\LoginResponse.cs",
@@ -179,8 +187,7 @@
               "RelativeToolTip": "test\\Dtos\\LoginResponse.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T20:23:53.405Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-14T20:23:53.405Z"
             }
           ]
         }

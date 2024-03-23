@@ -15,6 +15,8 @@ namespace test.Models
         public List<string> Photos { get; set; }
         public double AverageRating { get; set; }
 
+        
+
         // Location coordinates
         public double Latitude { get; set; }
         public double Longitude { get; set; }

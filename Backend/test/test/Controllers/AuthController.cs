@@ -26,10 +26,16 @@ namespace test.Controllers
             _roleManager = roleManager;
         }
 
+
+
         [HttpPost]
         [Route("role/add")]
         public async Task<IActionResult> CreateRole([FromBody] RoleRequest request)
         {
+            if (request.Role != "LANDLORD")
+            {
+                return BadRequest(new { message = "Invalid role" });
+            }
             var appRole = new ApplicationRole { Name = request.Role };
             var createRole = await _roleManager.CreateAsync(appRole);
 
