@@ -45,54 +45,57 @@ namespace test.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] test.Dtos.RegisterRequest request)
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
-            var result = await RegisterAsync(request);
+            if (request.Role != "LANDLORD" && request.Role != "TENANT")
+            {
+                return BadRequest(new RegisterResponse { Message = "Invalid role" });
+            }
 
+            var result = await RegisterAsync(request, request.Role);
             return result.Success ? Ok(result) : BadRequest(result.Message);
-
         }
 
-        private async Task<RegisterResponse> RegisterAsync(test.Dtos.RegisterRequest request)
+        private async Task<RegisterResponse> RegisterAsync(RegisterRequest request, string role)
         {
             try
             {
                 var userExists = await _userManager.FindByEmailAsync(request.Email);
                 if (userExists != null) return new RegisterResponse { Message = "User already exists", Success = false };
 
-                //if we get here, no user with this email..
-
-                userExists = new ApplicationUser
+                // Create a new user with the provided details
+                var newUser = new ApplicationUser
                 {
                     Email = request.Email,
                     FullName = request.FullName,
                     PhoneNumber = request.PhoneNumber,
                     Address = request.Address,
-
-
-                    ConcurrencyStamp = Guid.NewGuid().ToString(),
                     UserName = request.Username,
-
+                    // Optionally, set other properties as needed
                 };
-                var createUserResult = await _userManager.CreateAsync(userExists, request.Password);
-                if (!createUserResult.Succeeded) return new RegisterResponse { Message = $"Create user failed {createUserResult?.Errors?.First()?.Description}", Success = false };
-                //user is created...
-                //then add user to a role...
-                var addUserToRoleResult = await _userManager.AddToRoleAsync(userExists, "USER");
-                if (!addUserToRoleResult.Succeeded) return new RegisterResponse { Message = $"Create user succeeded but could not add user to role {addUserToRoleResult?.Errors?.First()?.Description}", Success = false };
 
-                //all is still well..
-                return new RegisterResponse
+                var createUserResult = await _userManager.CreateAsync(newUser, request.Password);
+                if (!createUserResult.Succeeded)
                 {
-                    Success = true,
-                    Message = "User registered successfully"
-                };
+                    return new RegisterResponse { Message = $"Create user failed: {createUserResult.Errors?.FirstOrDefault()?.Description}", Success = false };
+                }
+
+                // Add the user to the specified role
+                var addToRoleResult = await _userManager.AddToRoleAsync(newUser, role);
+                if (!addToRoleResult.Succeeded)
+                {
+                    return new RegisterResponse { Message = $"Add user to role failed: {addToRoleResult.Errors?.FirstOrDefault()?.Description}", Success = false };
+                }
+
+                // Registration successful
+                return new RegisterResponse { Success = true, Message = "User registered successfully" };
             }
             catch (Exception ex)
             {
                 return new RegisterResponse { Success = false, Message = ex.Message };
             }
         }
+
 
         [HttpPost]
         [Route("login")]
@@ -145,5 +148,48 @@ namespace test.Controllers
                 return BadRequest(new LoginResponse { Success = false, Message = ex.Message });
             }
         }
+
+        [HttpPost]
+        [Route("create-admin")]
+        public async Task<IActionResult> CreateAdmin([FromBody] AdminCreationRequest request, string rootPassword)
+        {
+            try
+            {
+                // Check if the root password is correct
+                if (rootPassword != "ROOT_PASSWORD")
+                {
+                    return BadRequest(new { message = "Root password is incorrect" });
+                }
+
+                // Create a new admin user regardless of existing admins
+                var adminUser = new ApplicationUser
+                {
+                    UserName = request.Username,
+                    Email = request.Email,
+                    FullName = request.FullName,
+                    PhoneNumber = request.PhoneNumber,
+                    Address = request.Address,
+                    Gender = request.Gender
+                };
+
+                var createResult = await _userManager.CreateAsync(adminUser, request.Password);
+
+                if (createResult.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(adminUser, "ADMIN");
+                    return Ok(new { message = "ADMIN user created successfully" });
+                }
+                else
+                {
+                    return BadRequest(new { message = "Failed to create ADMIN user" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Error creating ADMIN user: {ex.Message}" });
+            }
+        }
+
+
     }
 }

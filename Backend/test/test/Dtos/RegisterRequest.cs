@@ -22,6 +22,7 @@ namespace test.Dtos
         public string Address { get; set; } = string.Empty;
         [Required]
         public string Gender { get; set; } = string.Empty;
-        
+        [Required(ErrorMessage = "Role is required")]
+        public string Role { get; set; } // Add Role property for choosing between landlord and tenant
     }
 }
