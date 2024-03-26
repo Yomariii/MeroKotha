@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using test.Dtos;
@@ -20,6 +21,7 @@ namespace test.Controllers
 
         [HttpPost]
         [Route("Creation")]
+        [Authorize(Roles = "ADMIN,LANDLORD")]
         public async Task< IActionResult> CreateProperty([FromBody] RentalRequest request)
         {
             try
@@ -46,6 +48,7 @@ namespace test.Controllers
 
         [HttpGet]
         [Route("List")]
+        [Authorize(Roles = "ADMIN,LANDLORD,TENANT")]
         public async Task<IActionResult> GetProperty()
         {
             try
@@ -79,6 +82,7 @@ namespace test.Controllers
 
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "ADMIN,LANDLORD")]
         public async Task<IActionResult> DeleteProperty(string id)
         {
             try
@@ -93,6 +97,7 @@ namespace test.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "ADMIN,LANDLORD")]
         public async Task<IActionResult> UpdateProperty(string id, [FromBody] RentalRequest request)
         {
             try

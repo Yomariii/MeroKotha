@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 
 using test.Models;
 using test.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace test.Controllers
 {
@@ -168,6 +169,47 @@ namespace test.Controllers
                     Email = request.Email,
                     FullName = request.FullName,
                     PhoneNumber = request.PhoneNumber,
+                };
+
+                var createResult = await _userManager.CreateAsync(adminUser, request.Password);
+
+                if (createResult.Succeeded)
+                {
+                    // Assign the "Super Admin" role to the admin user
+                    await _userManager.AddToRoleAsync(adminUser, "SUPER_ADMIN");
+                    return Ok(new { message = "SUPER ADMIN user created successfully" });
+                }
+                else
+                {
+                    return BadRequest(new { message = "Failed to create SUPER ADMIN user" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Error creating SUPER ADMIN user: {ex.Message}" });
+            }
+        }
+
+        [HttpPost]
+        [Route("create-super-admin")]
+        [Authorize(Roles = "SUPER_ADMIN")]
+        public async Task<IActionResult> CreateSuperAdmin([FromBody] AdminCreationRequest request, string superAdminPassword)
+        {
+            try
+            {
+                // Check if the super admin password is correct
+                if (superAdminPassword != "SUPER_ADMIN_PASSWORD")
+                {
+                    return BadRequest(new { message = "Super Admin password is incorrect" });
+                }
+
+                // Create a new admin user
+                var adminUser = new ApplicationUser
+                {
+                    UserName = request.Username,
+                    Email = request.Email,
+                    FullName = request.FullName,
+                    PhoneNumber = request.PhoneNumber,
                     Address = request.Address,
                     Gender = request.Gender
                 };
@@ -189,6 +231,8 @@ namespace test.Controllers
                 return BadRequest(new { message = $"Error creating ADMIN user: {ex.Message}" });
             }
         }
+
+
 
 
     }
