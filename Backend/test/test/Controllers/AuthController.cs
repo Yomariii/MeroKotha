@@ -211,7 +211,6 @@ namespace test.Controllers
                     FullName = request.FullName,
                     PhoneNumber = request.PhoneNumber,
                     Address = request.Address,
-                    Gender = request.Gender
                 };
 
                 var createResult = await _userManager.CreateAsync(adminUser, request.Password);
