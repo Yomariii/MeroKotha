@@ -33,10 +33,10 @@ namespace test.Controllers
         [Route("role/add")]
         public async Task<IActionResult> CreateRole([FromBody] RoleRequest request)
         {
-            if (request.Role != "LANDLORD")
-            {
-                return BadRequest(new { message = "Invalid role" });
-            }
+            //if (request.Role != "LANDLORD")
+            //{
+            //    return BadRequest(new { message = "Invalid role" });
+            //}
             var appRole = new ApplicationRole { Name = request.Role };
             var createRole = await _roleManager.CreateAsync(appRole);
 
@@ -106,18 +106,18 @@ namespace test.Controllers
             try
             {
                 var user = await _userManager.FindByEmailAsync(request.Email);
-                if (user is null)
+                if (user == null || !(await _userManager.CheckPasswordAsync(user, request.Password)))
                 {
-                    return BadRequest(new LoginResponse { Success = false, Message = "User not found" });
+                    return BadRequest(new LoginResponse { Success = false, Message = "Invalid email or password" });
                 }
 
                 var claims = new List<Claim>
-                 {
-                     new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                     new Claim(ClaimTypes.Name, user.UserName),
-                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
-                 };
+                {
+                    new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                };
 
                 var roles = await _userManager.GetRolesAsync(user);
                 var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, x));
@@ -139,9 +139,9 @@ namespace test.Controllers
                 {
                     Token = new JwtSecurityTokenHandler().WriteToken(token),
                     Message = "Login Successful",
-                    Email = user?.Email,
+                    Email = user.Email,
                     Success = true,
-                    UserID = user?.Id.ToString()
+                    UserID = user.Id.ToString(),
                 });
             }
             catch (Exception ex)

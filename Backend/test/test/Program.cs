@@ -121,6 +121,7 @@ app.UseHttpsRedirection();
 
 app.UseCors("AllowMyOrigin"); // Use the CORS policy
 
+
 app.UseAuthorization();
 
 app.MapControllers();

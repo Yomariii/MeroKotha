@@ -7,5 +7,6 @@ namespace test.Dtos
         public string Email { get; set; } = string.Empty;
         public string UserID { get; set; } = string.Empty;
         public string Message { get; set; } = string.Empty;
+        public string Role { get; set; } = string.Empty;
     }
 }

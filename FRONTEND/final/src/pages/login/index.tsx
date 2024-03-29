@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import axios from "axios";
 import backgroundImage from "/login.jpg";
 import Navbar from "../navbar";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState<string | null>(null);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -14,13 +16,33 @@ const LoginPage: React.FC = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Add your login logic here
+
+    try {
+      const apiBaseUrl = "https://localhost:7154";
+      const LogEndpoint = "/api/v1/auth/login";
+
+      const response = await axios.post(apiBaseUrl + LogEndpoint, {
+        email: email,
+        password: password,
+      });
+
+      // Update the user state in the AuthContext
+
+      // Redirect to the dashboard or homepage
+
+      window.location.href = "/";
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error During Login - ", error);
+      setLoginError("Invalid email or Password"); // Set the login error message
+    }
   };
 
   return (
     <div>
+      <Navbar />
       <div
         style={{ backgroundImage: `url(${backgroundImage})` }}
         className="min-h-screen flex items-center justify-center bg-cover py-12 px-4 sm:px-6 lg:px-8"
@@ -31,7 +53,7 @@ const LoginPage: React.FC = () => {
               Login
             </h2>
           </div>
-          <form className="mt-8tt space-y-6" onSubmit={handleSubmit}>
+          <form className="mt-8 space-y-6" onSubmit={handleLogin}>
             <input type="hidden" name="remember" value="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
@@ -75,6 +97,15 @@ const LoginPage: React.FC = () => {
               >
                 Login
               </button>
+              {loginError && (
+                <p className="mt-2 text-sm text-red-500">{loginError}</p>
+              )}
+              <p className="mt-2 text-sm text-gray-600">
+                Don't have an account?{" "}
+                <a href="/register" className="text-blue-500 underline">
+                  Go to register
+                </a>
+              </p>
             </div>
           </form>
         </div>
