@@ -11,6 +11,8 @@ const Register: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [role, setRole] = useState("LANDLORD");
+  const [passwordMatchError, setPasswordMatchError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
 
   const [registrationError, setRegistrationError] = useState<string | null>(
     null
@@ -18,6 +20,25 @@ const Register: React.FC = () => {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      setPasswordMatchError("Passwords do not match.");
+      return;
+    }
+
+    // Clear password match error if passwords match
+    setPasswordMatchError("");
+
+    // Check if phone number is valid
+    if (!/^\d{10}$/.test(phoneNumber) || !phoneNumber.startsWith("98")) {
+      setPhoneError("Invalid phone number.");
+      return;
+    }
+
+    // Clear phone number error if valid
+    setPhoneError("");
+
     try {
       const apiBaseUrl = "https://localhost:7154"; // Update with your backend URL
       const registerEndpoint = "/api/v1/auth/register";
@@ -52,6 +73,8 @@ const Register: React.FC = () => {
         <h2 className="text-2xl font-bold mb-4">Register</h2>
         <form onSubmit={handleRegister} className="space-y-4">
           {registrationError && <p>{registrationError}</p>}
+          {passwordMatchError && <p>{passwordMatchError}</p>}
+          {phoneError && <p>{phoneError}</p>}
           <div>
             <label className="block mb-1">Email:</label>
             <input
@@ -130,7 +153,7 @@ const Register: React.FC = () => {
               type="button"
               className={`w-1/2 py-2 rounded-md ${
                 role === "LANDLORD"
-                  ? "bg-primary text-white"
+                  ? "bg-blue-500 text-white"
                   : "bg-gray-300 text-gray-500"
               }`}
               onClick={() => setRole("LANDLORD")}
@@ -141,7 +164,7 @@ const Register: React.FC = () => {
               type="button"
               className={`w-1/2 py-2 rounded-md ${
                 role === "TENANT"
-                  ? "bg-primary text-white"
+                  ? "bg-blue-500 text-white"
                   : "bg-gray-300 text-gray-500"
               }`}
               onClick={() => setRole("TENANT")}
@@ -151,10 +174,16 @@ const Register: React.FC = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary-dark focus:outline-none"
+            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-700 focus:outline-none"
           >
             Register
           </button>
+          <p className="mt-2 text-sm text-gray-600">
+            Already have an account?{" "}
+            <a href="/login" className="text-blue-500 underline">
+              Login
+            </a>
+          </p>
         </form>
       </div>
     </div>
