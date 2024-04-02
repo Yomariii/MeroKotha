@@ -3,3 +3,11 @@
 @tailwind utilities;
 
 
+.aa{
+    background-color: #000000bf;
+    color: white;
+
+}
+.aa:hover{
+    background-color: whitesmoke;
+}
