@@ -142,6 +142,7 @@ namespace test.Controllers
                     Email = user.Email,
                     Success = true,
                     UserID = user.Id.ToString(),
+                    Role = roles.FirstOrDefault()
                 });
             }
             catch (Exception ex)
@@ -150,7 +151,55 @@ namespace test.Controllers
             }
         }
 
-        [HttpPost]
+
+
+        [ApiController]
+        [Route("api/v1/user")]
+        public class UserController : ControllerBase
+        {
+            private readonly UserManager<ApplicationUser> _userManager;
+
+            public UserController(UserManager<ApplicationUser> userManager)
+            {
+                _userManager = userManager;
+            }
+
+            [HttpGet]
+            [Route("search/{email}")]
+            public async Task<IActionResult> SearchUser(string email)
+            {
+                var user = await _userManager.FindByEmailAsync(email);
+                if (user == null)
+                {
+                    return NotFound(new { message = "User not found" });
+                }
+
+                return Ok(user);
+            }
+
+            [HttpDelete]
+            [Route("delete/{userId}")]
+            public async Task<IActionResult> DeleteUser(string userId)
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    return NotFound(new { message = "User not found" });
+                }
+
+                var result = await _userManager.DeleteAsync(user);
+                if (!result.Succeeded)
+                {
+                    return BadRequest(new { message = "Failed to delete user" });
+                }
+
+                return Ok(new { message = "User deleted successfully" });
+            }
+        }
+    
+
+
+    [HttpPost]
         [Route("create-admin")]
         public async Task<IActionResult> CreateAdmin([FromBody] AdminCreationRequest request, string rootPassword)
         {
@@ -231,8 +280,110 @@ namespace test.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("profile/{userId}")]
+        //[Authorize(Roles = "ADMIN,SUPER_ADMIN")]
+        public async Task<IActionResult> GetUserProfile(string userId)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    return NotFound(new { message = "User not found" });
+                }
+
+                var userProfile = new UserProfileDto
+                {
+                    FullName = user.FullName,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    Address = user.Address,
+                    // Add other properties as needed
+                };
+
+                return Ok(userProfile);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Error fetching user profile: {ex.Message}" });
+            }
+        }
+
+        //[HttpPut]
+        //[Route("profile/{userId}")]
+        //[Authorize]
+        //public async Task<IActionResult> UpdateUserProfile(string userId, [FromBody] UserProfileDto updatedProfile)
+        //{
+        //    try
+        //    {
+        //        var user = await _userManager.FindByIdAsync(userId);
+        //        if (user == null)
+        //        {
+        //            return NotFound(new { message = "User not found" });
+        //        }
+
+        //        // Update the user's profile properties
+        //        user.FullName = updatedProfile.FullName;
+        //        user.Email = updatedProfile.Email;
+        //        user.PhoneNumber = updatedProfile.PhoneNumber;
+        //        user.Address = updatedProfile.Address;
+        //        // Update other properties as needed
+
+        //        var updateResult = await _userManager.UpdateAsync(user);
+        //        if (!updateResult.Succeeded)
+        //        {
+        //            return BadRequest(new { message = $"Failed to update profile: {updateResult.Errors?.FirstOrDefault()?.Description}" });
+        //        }
+
+        //        return Ok(new { message = "Profile updated successfully" });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(new { message = $"Error updating profile: {ex.Message}" });
+        //    }
+        //}
+
+        [HttpPut]
+        [Route("update-profile/{userId}")]
+        //[Authorize(Roles = "ADMIN,SUPER_ADMIN")] // Adjust authorization as needed
+        public async Task<IActionResult> UpdateUserProfile(string userId, [FromBody] UserProfileDto profileUpdate)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    return NotFound(new { message = "User not found" });
+                }
+
+                // Update user profile properties based on the profileUpdate DTO
+                user.FullName = profileUpdate.FullName;
+                user.Email = profileUpdate.Email;
+                user.PhoneNumber = profileUpdate.PhoneNumber;
+                user.Address = profileUpdate.Address;
+                // Update other properties as needed
+
+                // Save changes to the user profile
+                var updateResult = await _userManager.UpdateAsync(user);
+                if (!updateResult.Succeeded)
+                {
+                    // Handle update failure
+                    return BadRequest(new { message = "Failed to update user profile" });
+                }
+
+                return Ok(new { message = "User profile updated successfully" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Error updating user profile: {ex.Message}" });
+            }
+        }
+
+
 
 
 
     }
+
 }

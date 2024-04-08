@@ -18,7 +18,6 @@ const LoginPage: React.FC = () => {
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     try {
       const apiBaseUrl = "https://localhost:7154";
       const LogEndpoint = "/api/v1/auth/login";
@@ -28,12 +27,18 @@ const LoginPage: React.FC = () => {
         password: password,
       });
 
+      // Assuming the token is returned in the response data
+      const token = response.data.token;
+
+      // Store the token securely (e.g., in local storage)
+      localStorage.setItem("token", token);
+
       // Update the user state in the AuthContext
 
       // Redirect to the dashboard or homepage
 
       window.location.href = "/";
-      console.log(response.data);
+      //console.log(response.data);
     } catch (error) {
       console.error("Error During Login - ", error);
       setLoginError("Invalid email or Password"); // Set the login error message

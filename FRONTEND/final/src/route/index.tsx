@@ -4,6 +4,7 @@ import Register from "../pages/register";
 import TermsAndPolicy from "../pages/termspolicy";
 import AboutUs from "../pages/aboutus";
 import ContactUs from "../pages/contactus";
+import PropertyCrudPage from "../pages/properties";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -17,6 +18,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/termsandpolicy" element={<TermsAndPolicy />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/contactus" element={<ContactUs />} />
+        <Route path="/properties" element={<PropertyCrudPage />} />
 
         {/* Add more routes as needed */}
       </Routes>

@@ -10,10 +10,7 @@ const Register: React.FC = () => {
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
-  const [role, setRole] = useState("LANDLORD");
-  const [passwordMatchError, setPasswordMatchError] = useState("");
-  const [phoneError, setPhoneError] = useState("");
-
+  const [role, setRole] = useState<"LANDLORD" | "TENANT">("LANDLORD");
   const [registrationError, setRegistrationError] = useState<string | null>(
     null
   );
@@ -23,21 +20,15 @@ const Register: React.FC = () => {
 
     // Check if passwords match
     if (password !== confirmPassword) {
-      setPasswordMatchError("Passwords do not match.");
+      alert("Passwords do not match.");
       return;
     }
-
-    // Clear password match error if passwords match
-    setPasswordMatchError("");
 
     // Check if phone number is valid
     if (!/^\d{10}$/.test(phoneNumber) || !phoneNumber.startsWith("98")) {
-      setPhoneError("Invalid phone number.");
+      alert("Invalid phone number.");
       return;
     }
-
-    // Clear phone number error if valid
-    setPhoneError("");
 
     try {
       const apiBaseUrl = "https://localhost:7154"; // Update with your backend URL
@@ -72,9 +63,9 @@ const Register: React.FC = () => {
       <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-4">Register</h2>
         <form onSubmit={handleRegister} className="space-y-4">
-          {registrationError && <p>{registrationError}</p>}
-          {passwordMatchError && <p>{passwordMatchError}</p>}
-          {phoneError && <p>{phoneError}</p>}
+          {registrationError && (
+            <p className="text-red-500">{registrationError}</p>
+          )}
           <div>
             <label className="block mb-1">Email:</label>
             <input

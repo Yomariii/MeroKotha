@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using test.Dtos;
 using test.Models;
@@ -21,7 +22,7 @@ namespace test.Controllers
 
         [HttpPost]
         [Route("Creation")]
-        [Authorize(Roles = "ADMIN,LANDLORD")]
+        //[Authorize(Roles = "ADMIN,LANDLORD")]
         public async Task< IActionResult> CreateProperty([FromBody] RentalRequest request)
         {
             try
@@ -33,7 +34,10 @@ namespace test.Controllers
                     Price = request.Price,
                     Photos = request.Photos,
                     Latitude = request.Latitude,
-                    Longitude = request.Longitude
+                    Longitude = request.Longitude,
+                    FullName = request.FullName,
+                    PhoneNumber = request.PhoneNumber,
+                   Email = request.Email
                 };
 
                 await _propertyCollection.InsertOneAsync(property);
@@ -48,19 +52,44 @@ namespace test.Controllers
 
         [HttpGet]
         [Route("List")]
-        [Authorize(Roles = "ADMIN,LANDLORD,TENANT")]
-        public async Task<IActionResult> GetProperty()
+        //[Authorize(Roles = "ADMIN,LANDLORD,TENANT")]
+        public async Task<IActionResult> GetProperty([FromQuery] PropertySearchDto searchDto)
         {
             try
             {
-                var property = await _propertyCollection.Find(itinerary => true).ToListAsync();
-                return Ok(property);
+                var filterBuilder = Builders<RentalProperty>.Filter.Empty;
+
+                // Apply search criteria based on the provided searchDto
+                if (!string.IsNullOrEmpty(searchDto.Type))
+                {
+                    filterBuilder &= Builders<RentalProperty>.Filter.Eq(property => property.Type, searchDto.Type);
+                }
+
+                if (!string.IsNullOrEmpty(searchDto.Name))
+                {
+                    filterBuilder &= Builders<RentalProperty>.Filter.Regex(property => property.Name, new BsonRegularExpression(searchDto.Name, "i"));
+                }
+
+                if (searchDto.MinPrice.HasValue)
+                {
+                    filterBuilder &= Builders<RentalProperty>.Filter.Gte(property => property.Price, searchDto.MinPrice.Value);
+                }
+
+                if (searchDto.MaxPrice.HasValue)
+                {
+                    filterBuilder &= Builders<RentalProperty>.Filter.Lte(property => property.Price, searchDto.MaxPrice.Value);
+                }
+
+                // Execute the filtered query
+                var propertyList = await _propertyCollection.Find(filterBuilder).ToListAsync();
+                return Ok(propertyList);
             }
             catch (Exception ex)
             {
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProperty(string id)
@@ -82,7 +111,7 @@ namespace test.Controllers
 
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "ADMIN,LANDLORD")]
+        //[Authorize(Roles = "ADMIN,LANDLORD")]
         public async Task<IActionResult> DeleteProperty(string id)
         {
             try
@@ -97,7 +126,7 @@ namespace test.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "ADMIN,LANDLORD")]
+        //[Authorize(Roles = "ADMIN,LANDLORD")]
         public async Task<IActionResult> UpdateProperty(string id, [FromBody] RentalRequest request)
         {
             try
@@ -126,6 +155,33 @@ namespace test.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("search")]
+        public async Task<IActionResult> SearchProperties([FromQuery] string name, [FromQuery] string description)
+        {
+            try
+            {
+                var filter = Builders<RentalProperty>.Filter.Empty;
+
+                if (!string.IsNullOrEmpty(name))
+                {
+                    filter &= Builders<RentalProperty>.Filter.Regex(property => property.Name, new BsonRegularExpression(name, "i"));
+                }
+
+                if (!string.IsNullOrEmpty(description))
+                {
+                    filter &= Builders<RentalProperty>.Filter.Regex(property => property.Description, new BsonRegularExpression(description, "i"));
+                }
+
+                var properties = await _propertyCollection.Find(filter).ToListAsync();
+
+                return Ok(properties);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+        }
 
 
 
