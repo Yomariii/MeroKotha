@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import axios from "axios";
 import backgroundImage from "/login.jpg";
 import Navbar from "../navbar";
+// import { Icon } from "react-icons-kit";
+// import { eyeOff } from "react-icons-kit/feather/eyeOff";
+// import { eye } from "react-icons-kit/feather/eye";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  // const [icon, setIcon] = useState(eyeOff);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -84,7 +89,7 @@ const LoginPage: React.FC = () => {
                 <input
                   id="password"
                   name="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   autoComplete="current-password"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
@@ -92,6 +97,9 @@ const LoginPage: React.FC = () => {
                   value={password}
                   onChange={handlePasswordChange}
                 />
+                <button onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? "Hide" : "Show"}
+                </button>
               </div>
             </div>
 

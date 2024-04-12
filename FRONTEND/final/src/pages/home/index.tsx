@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import Banner from "../banner";
 import { Link } from "react-router-dom";
@@ -23,12 +22,15 @@ export default function Home() {
     <div>
       <Navbar />
       <Banner />
-      {/* <button onClick={handleLogout}>Logout</button>
+      <button onClick={handleLogout}>Logout</button>
+      <br />
       <button onClick={handleEditProfile}>Edit Profile</button>
       <br />
       <Link to="/login">Login</Link>
       <br />
-      <Link to="/register">Register</Link> */}
+      <Link to="/register">
+        <img src="/logo.png" alt="Register" />
+      </Link>
     </div>
   );
 }

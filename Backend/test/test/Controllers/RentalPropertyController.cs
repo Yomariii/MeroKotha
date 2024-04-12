@@ -51,7 +51,7 @@ namespace test.Controllers
         }
 
         [HttpGet]
-        [Route("List")]
+        [Route("Search")]
         //[Authorize(Roles = "ADMIN,LANDLORD,TENANT")]
         public async Task<IActionResult> GetProperty([FromQuery] PropertySearchDto searchDto)
         {
@@ -156,25 +156,12 @@ namespace test.Controllers
         }
 
         [HttpGet]
-        [Route("search")]
-        public async Task<IActionResult> SearchProperties([FromQuery] string name, [FromQuery] string description)
+        [Route("List")]
+        public async Task<IActionResult> ListAllProperties()
         {
             try
             {
-                var filter = Builders<RentalProperty>.Filter.Empty;
-
-                if (!string.IsNullOrEmpty(name))
-                {
-                    filter &= Builders<RentalProperty>.Filter.Regex(property => property.Name, new BsonRegularExpression(name, "i"));
-                }
-
-                if (!string.IsNullOrEmpty(description))
-                {
-                    filter &= Builders<RentalProperty>.Filter.Regex(property => property.Description, new BsonRegularExpression(description, "i"));
-                }
-
-                var properties = await _propertyCollection.Find(filter).ToListAsync();
-
+                var properties = await _propertyCollection.Find(_ => true).ToListAsync();
                 return Ok(properties);
             }
             catch (Exception ex)
@@ -182,6 +169,37 @@ namespace test.Controllers
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
+
+
+
+
+        //[HttpGet]
+        //[Route("search")]
+        //public async Task<IActionResult> SearchProperties([FromQuery] string name, [FromQuery] string description)
+        //{
+        //    try
+        //    {
+        //        var filter = Builders<RentalProperty>.Filter.Empty;
+
+        //        if (!string.IsNullOrEmpty(name))
+        //        {
+        //            filter &= Builders<RentalProperty>.Filter.Regex(property => property.Name, new BsonRegularExpression(name, "i"));
+        //        }
+
+        //        if (!string.IsNullOrEmpty(description))
+        //        {
+        //            filter &= Builders<RentalProperty>.Filter.Regex(property => property.Description, new BsonRegularExpression(description, "i"));
+        //        }
+
+        //        var properties = await _propertyCollection.Find(filter).ToListAsync();
+
+        //        return Ok(properties);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, $"Internal Server Error: {ex.Message}");
+        //    }
+        //}
 
 
 
