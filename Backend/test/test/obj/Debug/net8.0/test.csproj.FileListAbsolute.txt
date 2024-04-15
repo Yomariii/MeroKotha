@@ -169,3 +169,5 @@ C:\Users\Yomari\Downloads\hmmmm\MeroKotha\Backend\test\test\obj\Debug\net8.0\ref
 C:\Users\Yomari\Downloads\hmmmm\MeroKotha\Backend\test\test\obj\Debug\net8.0\test.pdb
 C:\Users\Yomari\Downloads\hmmmm\MeroKotha\Backend\test\test\obj\Debug\net8.0\test.genruntimeconfig.cache
 C:\Users\Yomari\Downloads\hmmmm\MeroKotha\Backend\test\test\obj\Debug\net8.0\ref\test.dll
+C:\Users\Yomari\Downloads\hmmmm\MeroKotha\Backend\test\test\bin\Debug\net8.0\FluentEmail.Core.dll
+C:\Users\Yomari\Downloads\hmmmm\MeroKotha\Backend\test\test\bin\Debug\net8.0\FluentEmail.Smtp.dll

@@ -23,7 +23,7 @@ namespace test.Controllers
         [HttpPost]
         [Route("Creation")]
         //[Authorize(Roles = "ADMIN,LANDLORD")]
-        public async Task< IActionResult> CreateProperty([FromBody] RentalRequest request)
+        public async Task<IActionResult> CreateProperty([FromForm] RentalRequest request, [FromForm] List<IFormFile> photos)
         {
             try
             {
@@ -32,13 +32,15 @@ namespace test.Controllers
                     Name = request.Name,
                     Description = request.Description,
                     Price = request.Price,
-                    Photos = request.Photos,
                     Latitude = request.Latitude,
                     Longitude = request.Longitude,
                     FullName = request.FullName,
                     PhoneNumber = request.PhoneNumber,
-                   Email = request.Email
+                    Email = request.Email
                 };
+
+                // Save photos and get their file names
+                property.Photos = await SavePhotos(photos);
 
                 await _propertyCollection.InsertOneAsync(property);
 
@@ -48,6 +50,29 @@ namespace test.Controllers
             {
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
+        }
+
+        private async Task<List<string>> SavePhotos(List<IFormFile> photos)
+        {
+            var savedPhotos = new List<string>();
+
+            foreach (var photo in photos)
+            {
+                // Generate unique file name or use GUID
+                var fileName = $"{Guid.NewGuid().ToString()}_{photo.FileName}";
+
+                // Define the path to save the photo
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Photos", "Properties", fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await photo.CopyToAsync(stream);
+                }
+
+                savedPhotos.Add(filePath); // Save the file path to the list
+            }
+
+            return savedPhotos;
         }
 
         [HttpGet]

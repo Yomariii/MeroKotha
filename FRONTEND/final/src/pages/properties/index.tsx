@@ -1,12 +1,47 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../navbar";
+import {
+  LoadScript,
+  GoogleMap,
+  Marker,
+  StandaloneSearchBox,
+} from "@react-google-maps/api";
 
 const PropertyCrudPage: React.FC = () => {
   const [properties, setProperties] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
+  const [selectedPlace, setSelectedPlace] = useState(null); // State to store selected place
+
+  const mapStyles = {
+    height: "50vh",
+    width: "100%",
+  };
+
+  const [autocomplete, setAutocomplete] = useState(null);
+
+  const onLoad = (autocomplete) => {
+    setAutocomplete(autocomplete);
+  };
+
+  const onPlaceChanged = () => {
+    if (autocomplete !== null) {
+      let place = autocomplete.getPlace();
+      if (place && place.geometry && place.geometry.location) {
+        let location = place.geometry.location;
+        setSelectedPlace({ lat: location.lat(), lng: location.lng() });
+      }
+    } else {
+      console.log("Autocomplete is not loaded yet!");
+    }
+  };
+
+  const [defaultCenter, setDefaultCenter] = useState({
+    lat: 27.700769,
+    lng: 85.30014,
+  });
 
   useEffect(() => {
     fetchProperties();
@@ -29,6 +64,8 @@ const PropertyCrudPage: React.FC = () => {
         name: name,
         description: description,
         price: price,
+        latitude: defaultCenter.lat,
+        longitude: defaultCenter.lng,
       });
       fetchProperties();
       // Clear form inputs after successful creation
@@ -50,9 +87,9 @@ const PropertyCrudPage: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="p-4">
       <Navbar />
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mt-8 mb-4">
           Manage Rental Properties
         </h1>
@@ -100,6 +137,47 @@ const PropertyCrudPage: React.FC = () => {
                   className="w-full px-3 py-2 border rounded"
                 />
               </div>
+              <div>
+                <LoadScript
+                  googleMapsApiKey="AIzaSyB1o6-3uZwjEypw8203VsReL1i0npeUO_g"
+                  libraries={["places"]}
+                >
+                  <GoogleMap
+                    mapContainerStyle={mapStyles}
+                    center={selectedPlace || defaultCenter} // Use selectedPlace if available, else use defaultCenter
+                    zoom={15}
+                  >
+                    {selectedPlace && (
+                      <Marker position={selectedPlace} /> // Show marker at selected place's location
+                    )}
+                    <StandaloneSearchBox
+                      onLoad={onLoad}
+                      onPlacesChanged={onPlaceChanged}
+                    >
+                      <input
+                        type="text"
+                        placeholder="Search location"
+                        style={{
+                          boxSizing: `border-box`,
+                          border: `1px solid transparent`,
+                          width: `240px`,
+                          height: `32px`,
+                          padding: `0 12px`,
+                          borderRadius: `3px`,
+                          boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                          fontSize: `14px`,
+                          outline: `none`,
+                          textOverflow: `ellipses`,
+                          position: "absolute",
+                          left: "50%",
+                          marginLeft: "-120px",
+                        }}
+                      />
+                    </StandaloneSearchBox>
+                  </GoogleMap>
+                </LoadScript>
+              </div>
+
               <button
                 type="submit"
                 className="bg-blue-500 text-white px-4 py-2 rounded"
@@ -108,23 +186,30 @@ const PropertyCrudPage: React.FC = () => {
               </button>
             </form>
           </div>
-          <div className="p-4 border rounded shadow">
+          <div className="h-full p-4 border rounded shadow">
             <h2 className="text-xl font-semibold mb-4">Properties List</h2>
-            <ul>
+            <ul className="space-y-5">
               {properties.map((property: any) => (
-                <li
-                  key={property.id}
-                  className="mb-4 p-4 border rounded shadow"
-                >
-                  <p className="font-semibold">{property.name}</p>
-                  <p className="mb-2">{property.description}</p>
-                  <p className="mb-2">{property.price}</p>
-                  <button
-                    onClick={() => handleDeleteProperty(property.id)}
-                    className="bg-red-500 text-white px-3 py-1 rounded"
-                  >
-                    Delete
-                  </button>
+                <li key={property.id} className="card p-4">
+                  <div className="card-img"></div>
+                  <div className="card-info">
+                    <p className="text-title">{property.name}</p>
+                    <p className="text-body">{property.description}</p>
+                  </div>
+                  <div className="card-footer">
+                    <span className="text-title">{property.price}</span>
+                    <div className="card-button">
+                      <svg className="svg-icon w-3 h-3" viewBox="0 0 5 5">
+                        {/* SVG paths */}
+                      </svg>
+                      <button
+                        onClick={() => handleDeleteProperty(property.id)}
+                        className="bg-red-500 text-white px-3 py-1 rounded"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
                 </li>
               ))}
             </ul>

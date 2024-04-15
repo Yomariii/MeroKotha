@@ -11,8 +11,8 @@ const AboutUs: React.FC = () => {
           <div className="mb-8">
             <h3 className="text-xl font-semibold mb-2">Our Vision</h3>
             <p className="text-lg mb-4">
-              At [Company Name], our vision is to [describe your vision or
-              goals]. We strive to [explain how you aim to achieve your vision].
+              At MeroKotha, our vision is to [describe your vision or goals]. We
+              strive to [explain how you aim to achieve your vision].
             </p>
           </div>
           <div className="mb-8">

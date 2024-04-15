@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Banner from "../banner";
 import { Link } from "react-router-dom";
 import Navbar from "../navbar";
+import Slider from "../slider";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ export default function Home() {
 
   return (
     <div>
+      {/* <Slider /> */}
       <Navbar />
       <Banner />
       <button onClick={handleLogout}>Logout</button>

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "h45qliPtsW0GlzYSqkGyFjup9HeNKqUcAzYUIONC8EViJyfTUTRYiddC5IIgEg7QeYsafidPZfsJiV5kbeMcXA==",
+  "dgSpecHash": "W2zk/wFs2IL947PLx24umynI+e8ghndSfpCz87V6aoEzPf7izy7gODFsQm0LOSAKnV0zAcq4gbARJdom9FUPgw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Yomari\\Downloads\\hmmmm\\MeroKotha\\Backend\\test\\test\\test.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,8 @@
     "C:\\Users\\Yomari\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\Yomari\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",
     "C:\\Users\\Yomari\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",
+    "C:\\Users\\Yomari\\.nuget\\packages\\fluentemail.core\\3.0.2\\fluentemail.core.3.0.2.nupkg.sha512",
+    "C:\\Users\\Yomari\\.nuget\\packages\\fluentemail.smtp\\3.0.2\\fluentemail.smtp.3.0.2.nupkg.sha512",
     "C:\\Users\\Yomari\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.3\\microsoft.aspnetcore.authentication.jwtbearer.8.0.3.nupkg.sha512",
     "C:\\Users\\Yomari\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\8.0.3\\microsoft.aspnetcore.connections.abstractions.8.0.3.nupkg.sha512",
     "C:\\Users\\Yomari\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.12\\microsoft.aspnetcore.cryptography.internal.3.1.12.nupkg.sha512",
