@@ -1,56 +1,186 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using MongoDB.Driver;
 using test.Models;
 
 namespace test.Controllers
 {
     [ApiController]
-    [Route("api/v1/user")]
-    public class UserController : ControllerBase
+    [Route("api/usermgm")]
+    public class UserMgmController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public UserController(UserManager<ApplicationUser> userManager)
+
+        public UserMgmController(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }
-
         [HttpGet]
-        [Route("search/{email}")]
-        public async Task<IActionResult> SearchUser(string email)
+        [Route("all")]
+        public async Task<IActionResult> GetAllUsers()
         {
-            var user = await _userManager.FindByEmailAsync(email);
-            if (user == null)
+            try
             {
-                return NotFound(new { message = "User not found" });
-            }
+                var users = _userManager.Users.ToList();
 
-            return Ok(user);
+                var result = new List<object>();
+
+                foreach (var user in users)
+                {
+                    var roles = await _userManager.GetRolesAsync(user);
+                    if (!roles.Contains("Admin"))
+                    {
+                        result.Add(new
+                        {
+                            user.Id,
+                            user.UserName,
+                            user.NormalizedUserName,
+                            user.Email,
+                            user.NormalizedEmail,
+                            user.EmailConfirmed,
+                            user.CreatedOn,
+                            user.LockoutEnd
+                        });
+                    }
+                }
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
         }
 
         [HttpDelete]
-        [Route("delete/{userId}")]
-        public async Task<IActionResult> DeleteUser(string userId)
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteUser(string id)
         {
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
+            try
             {
-                return NotFound(new { message = "User not found" });
-            }
+                var user = await _userManager.FindByIdAsync(id);
+                if (user == null)
+                {
+                    return NotFound("User not found");
+                }
 
-            var result = await _userManager.DeleteAsync(user);
-            if (!result.Succeeded)
+                var roles = await _userManager.GetRolesAsync(user);
+                if (roles.Contains("Admin"))
+                {
+                    return BadRequest("Admin user cannot be deleted");
+                }
+
+                var result = await _userManager.DeleteAsync(user);
+                if (!result.Succeeded)
+                {
+                    return StatusCode(500, "Internal Server Error: Unable to delete user");
+                }
+
+                return Ok("User deleted successfully");
+            }
+            catch (Exception ex)
             {
-                return BadRequest(new { message = "Failed to delete user" });
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
-
-            return Ok(new { message = "User deleted successfully" });
         }
 
-        // Add other user-related endpoints as needed
+        [HttpPut]
+        [Route("ban/{id}")]
+        public async Task<IActionResult> BanUser(string id)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(id);
+                if (user == null)
+                {
+                    return NotFound("User not found");
+                }
+
+                var roles = await _userManager.GetRolesAsync(user);
+                if (roles.Contains("Admin"))
+                {
+                    return BadRequest("Admin user cannot be banned");
+                }
+
+                user.LockoutEnd = DateTimeOffset.MaxValue;
+                var result = await _userManager.UpdateAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    return StatusCode(500, "Internal Server Error: Unable to ban user");
+                }
+
+                return Ok("User banned successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+        }
+
+
+        [HttpPut]
+        [Route("ban/{id}/{days}")]
+        public async Task<IActionResult> BanUser(string id, int days)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(id);
+                if (user == null)
+                {
+                    return NotFound("User not found");
+                }
+
+                var roles = await _userManager.GetRolesAsync(user);
+                if (roles.Contains("Admin"))
+                {
+                    return BadRequest("Admin user cannot be banned");
+                }
+
+                user.LockoutEnd = DateTimeOffset.UtcNow.AddDays(days);
+                var result = await _userManager.UpdateAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    return StatusCode(500, "Internal Server Error: Unable to ban user");
+                }
+
+                return Ok($"User banned for {days} day(s) successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+        }
+
+
+        [HttpPut]
+        [Route("unban/{id}")]
+        public async Task<IActionResult> UnbanUser(string id)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(id);
+                if (user == null)
+                {
+                    return NotFound("User not found");
+                }
+
+                user.LockoutEnd = null;
+                var result = await _userManager.UpdateAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    return StatusCode(500, "Internal Server Error: Unable to unban user");
+                }
+
+                return Ok("User unbanned successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+        }
     }
 }

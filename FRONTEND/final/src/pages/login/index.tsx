@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 import backgroundImage from "/login.jpg";
-import Navbar from "../navbar";
-// import { Icon } from "react-icons-kit";
-// import { eyeOff } from "react-icons-kit/feather/eyeOff";
-// import { eye } from "react-icons-kit/feather/eye";
+import Navbar from "../Navbar";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
-  // const [icon, setIcon] = useState(eyeOff);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -32,21 +28,23 @@ const LoginPage: React.FC = () => {
         password: password,
       });
 
-      // Assuming the token is returned in the response data
       const token = response.data.token;
-
-      // Store the token securely (e.g., in local storage)
+      const user = response.data.userID;
+      const username = response.data.username;
+      const role = response.data.role;
       localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("username", username);
+      localStorage.setItem("role", role);
 
-      // Update the user state in the AuthContext
-
-      // Redirect to the dashboard or homepage
-
-      window.location.href = "/";
-      //console.log(response.data);
+      if (role === "ADMIN") {
+        window.location.href = "/admincontrols";
+      } else {
+        window.location.href = "/";
+      }
     } catch (error) {
       console.error("Error During Login - ", error);
-      setLoginError("Invalid email or Password"); // Set the login error message
+      setLoginError("Invalid email or Password");
     }
   };
 
@@ -97,9 +95,9 @@ const LoginPage: React.FC = () => {
                   value={password}
                   onChange={handlePasswordChange}
                 />
-                <button onClick={() => setShowPassword(!showPassword)}>
-                  {showPassword ? "Hide" : "Show"}
-                </button>
+                {/* <button onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ? "Hide" : "Show"}
+              </button> */}
               </div>
             </div>
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Navbar from "../navbar";
+import Navbar from "../Navbar";
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState("");

@@ -11,9 +11,11 @@ using Microsoft.IdentityModel.Tokens;
 using test.Models;
 using test.Dtos;
 using Microsoft.AspNetCore.Authorization;
+using BenchmarkDotNet.Attributes;
 
 namespace test.Controllers
 {
+    [BenchmarkCategory]
     [ApiController]
     [Route("api/v1/auth")]
     public class AuthController : ControllerBase
@@ -142,7 +144,9 @@ namespace test.Controllers
                     Email = user.Email,
                     Success = true,
                     UserID = user.Id.ToString(),
-                    Role = roles.FirstOrDefault()
+                    Role = roles.FirstOrDefault(),
+                    Name = user.FullName,
+                    Username = user.UserName
                 });
             }
             catch (Exception ex)
@@ -196,119 +200,45 @@ namespace test.Controllers
                 return Ok(new { message = "User deleted successfully" });
             }
         }
-    
 
 
-    [HttpPost]
-        [Route("create-admin")]
-        public async Task<IActionResult> CreateAdmin([FromBody] AdminCreationRequest request, string rootPassword)
+
+
+
+
+
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetUserDetails(string userId)
         {
-            try
+            if (string.IsNullOrEmpty(userId))
             {
-                // Check if the root password is correct
-                if (rootPassword != "ROOT_PASSWORD")
-                {
-                    return BadRequest(new { message = "Root password is incorrect" });
-                }
-
-                // Create a new admin user regardless of existing admins
-                var adminUser = new ApplicationUser
-                {
-                    UserName = request.Username,
-                    Email = request.Email,
-                    FullName = request.FullName,
-                    PhoneNumber = request.PhoneNumber,
-                };
-
-                var createResult = await _userManager.CreateAsync(adminUser, request.Password);
-
-                if (createResult.Succeeded)
-                {
-                    // Assign the "Super Admin" role to the admin user
-                    await _userManager.AddToRoleAsync(adminUser, "SUPER_ADMIN");
-                    return Ok(new { message = "SUPER ADMIN user created successfully" });
-                }
-                else
-                {
-                    return BadRequest(new { message = "Failed to create SUPER ADMIN user" });
-                }
+                return BadRequest("UserId cannot be empty");
             }
-            catch (Exception ex)
+
+            if (!Guid.TryParse(userId, out _))
             {
-                return BadRequest(new { message = $"Error creating SUPER ADMIN user: {ex.Message}" });
+                return BadRequest("UserId must be valid.");
             }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound(new { message = "User not found" });
+            }
+
+            var userDetails = new
+            {
+                user.UserName,
+                user.Email,
+                user.PhoneNumber,
+                user.Address,
+                user.FullName,
+                user.CreatedOn
+            };
+
+            return Ok(userDetails);
         }
 
-        [HttpPost]
-        [Route("create-super-admin")]
-        [Authorize(Roles = "SUPER_ADMIN")]
-        public async Task<IActionResult> CreateSuperAdmin([FromBody] AdminCreationRequest request, string superAdminPassword)
-        {
-            try
-            {
-                // Check if the super admin password is correct
-                if (superAdminPassword != "SUPER_ADMIN_PASSWORD")
-                {
-                    return BadRequest(new { message = "Super Admin password is incorrect" });
-                }
-
-                // Create a new admin user
-                var adminUser = new ApplicationUser
-                {
-                    UserName = request.Username,
-                    Email = request.Email,
-                    FullName = request.FullName,
-                    PhoneNumber = request.PhoneNumber,
-                    Address = request.Address,
-                };
-
-                var createResult = await _userManager.CreateAsync(adminUser, request.Password);
-
-                if (createResult.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(adminUser, "ADMIN");
-                    return Ok(new { message = "ADMIN user created successfully" });
-                }
-                else
-                {
-                    return BadRequest(new { message = "Failed to create ADMIN user" });
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = $"Error creating ADMIN user: {ex.Message}" });
-            }
-        }
-
-        [HttpGet]
-        [Route("profile/{userId}")]
-        //[Authorize(Roles = "ADMIN,SUPER_ADMIN")]
-        public async Task<IActionResult> GetUserProfile(string userId)
-        {
-            try
-            {
-                var user = await _userManager.FindByIdAsync(userId);
-                if (user == null)
-                {
-                    return NotFound(new { message = "User not found" });
-                }
-
-                var userProfile = new UserProfileDto
-                {
-                    FullName = user.FullName,
-                    Email = user.Email,
-                    PhoneNumber = user.PhoneNumber,
-                    Address = user.Address,
-                    // Add other properties as needed
-                };
-
-                return Ok(userProfile);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = $"Error fetching user profile: {ex.Message}" });
-            }
-        }
 
         //[HttpPut]
         //[Route("profile/{userId}")]
@@ -379,6 +309,8 @@ namespace test.Controllers
                 return BadRequest(new { message = $"Error updating user profile: {ex.Message}" });
             }
         }
+
+     
 
 
 

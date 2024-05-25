@@ -9,12 +9,20 @@ using AspNetCore.Identity.MongoDbCore.Extensions;
 using Microsoft.AspNetCore.Identity;
 using test.Models;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
 
 BsonSerializer.RegisterSerializer(new GuidSerializer(MongoDB.Bson.BsonType.String));
 BsonSerializer.RegisterSerializer(new DateTimeSerializer(MongoDB.Bson.BsonType.String));
 BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(MongoDB.Bson.BsonType.String));
+builder.Services.AddSignalR();
 
+
+
+//var updateResult = await _propertyCollection.UpdateOneAsync(
+//    Builders<RentalProperty>.Filter.Eq(p => p.Id, id),
+//    Builders<RentalProperty>.Update.Push(p => p.PhotoPaths, filePath));
 
 var mongoDbIdentityConfig = new MongoDbIdentityConfiguration
 {
@@ -59,6 +67,9 @@ builder.Services.Configure<MongoDbIdentityConfiguration>(options =>
     options.MongoDbSettings = mongoDbIdentityConfig.MongoDbSettings;
     options.IdentityOptionsAction = mongoDbIdentityConfig.IdentityOptionsAction;
 });
+
+builder.Services.AddSingleton<IDictionary<string, UserConnection>>(opt =>
+    new Dictionary<string, UserConnection>());
 
 builder.Services.AddSingleton<IMongoDatabase>(serviceProvider =>
 {
@@ -108,6 +119,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -121,6 +134,10 @@ app.UseHttpsRedirection();
 
 app.UseCors("AllowMyOrigin"); // Use the CORS policy
 
+app.UseStaticFiles();
+
+app.MapGet("/", () => "Hello World!");
+app.MapHub<ChatHub>("/chat");
 
 app.UseAuthorization();
 

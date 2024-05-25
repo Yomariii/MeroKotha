@@ -1,48 +1,57 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 
-const PropertyListings = () => {
-  const [properties, setProperties] = useState([]);
+interface PropertyDetail {
+  icon: string;
+  label: string;
+}
 
-  useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:7154/api/RentalProperty/List"
-        );
-        setProperties(response.data);
-      } catch (error) {
-        console.error("Error fetching properties:", error);
-      }
-    };
-
-    fetchProperties();
-  }, []);
+const PropertyDetails: React.FC = () => {
+  const propertyDetails: PropertyDetail[] = [
+    {
+      icon: "path/to/icon1.svg",
+      label: "Detail 1 (e.g., Bedrooms, Bathrooms)",
+    },
+    {
+      icon: "path/to/icon2.svg",
+      label: "Detail 2 (e.g., Square Footage, Year Built)",
+    },
+    {
+      icon: "path/to/icon3.svg",
+      label: "Detail 3 (e.g., Location, Amenities)",
+    },
+  ];
 
   return (
-    <div className="h-full p-4 border rounded shadow">
-      <h2 className="text-xl font-semibold mb-4">Properties List</h2>
-      <ul className="space-y-5">
-        {properties.map((property: any) => (
-          <li key={property.id} className="card p-4">
-            <div className="card-img"></div>
-            <div className="card-info">
-              <p className="text-title">{property.name}</p>
-              <p className="text-body">{property.description}</p>
-            </div>
-            <div className="card-footer">
-              <span className="text-title">{property.price}</span>
-              <div className="card-button">
-                <svg className="svg-icon w-3 h-3" viewBox="0 0 5 5">
-                  {/* SVG paths */}
-                </svg>
+    <div className="container mx-auto py-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <img
+            src="path/to/your/property/image.jpg"
+            alt="Property Image"
+            className="w-full h-auto rounded-lg"
+          />
+        </div>
+        <div>
+          <h2 className="text-3xl font-bold mb-4">Property Name</h2>
+          <p className="text-gray-700 mb-6">Property Description</p>
+          <div className="flex flex-col space-y-4">
+            {propertyDetails.map((detail, index) => (
+              <div key={index} className="flex items-center">
+                <img src={detail.icon} alt="Icon" className="w-6 h-6 mr-4" />
+                <p>{detail.label}</p>
               </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+            ))}
+          </div>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6">
+            Contact Us
+          </button>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6">
+            Message
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default PropertyListings;
+export default PropertyDetails;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "../navbar";
+import Navbar from "../Navbar";
 
 const ContactUs: React.FC = () => {
   const [name, setName] = useState("");

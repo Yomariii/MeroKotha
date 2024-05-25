@@ -1,232 +1,205 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using test.Dtos;
 using test.Models;
 
 namespace test.Controllers
 {
-    [Route("api/RentalProperty")]
     [ApiController]
-    public class RentalPropertyController : ControllerBase
+    [Route("api/rent")]
+    public class RentalPropertyController: ControllerBase
     {
-        private readonly IMongoCollection<RentalProperty> _propertyCollection;
+        private readonly IMongoCollection<RentalProperty> _rentalProperties;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public RentalPropertyController(IMongoDatabase database)
+        public RentalPropertyController(IMongoDatabase database, UserManager<ApplicationUser> userManager)
         {
-            _propertyCollection = database.GetCollection<RentalProperty>("rentalproperty");
-        }
-
-
-        [HttpPost]
-        [Route("Creation")]
-        //[Authorize(Roles = "ADMIN,LANDLORD")]
-        public async Task<IActionResult> CreateProperty([FromForm] RentalRequest request, [FromForm] List<IFormFile> photos)
-        {
-            try
-            {
-                var property = new RentalProperty
-                {
-                    Name = request.Name,
-                    Description = request.Description,
-                    Price = request.Price,
-                    Latitude = request.Latitude,
-                    Longitude = request.Longitude,
-                    FullName = request.FullName,
-                    PhoneNumber = request.PhoneNumber,
-                    Email = request.Email
-                };
-
-                // Save photos and get their file names
-                property.Photos = await SavePhotos(photos);
-
-                await _propertyCollection.InsertOneAsync(property);
-
-                return Ok("Rental property created successfully");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal Server Error: {ex.Message}");
-            }
-        }
-
-        private async Task<List<string>> SavePhotos(List<IFormFile> photos)
-        {
-            var savedPhotos = new List<string>();
-
-            foreach (var photo in photos)
-            {
-                // Generate unique file name or use GUID
-                var fileName = $"{Guid.NewGuid().ToString()}_{photo.FileName}";
-
-                // Define the path to save the photo
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Photos", "Properties", fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await photo.CopyToAsync(stream);
-                }
-
-                savedPhotos.Add(filePath); // Save the file path to the list
-            }
-
-            return savedPhotos;
+            _rentalProperties = database.GetCollection<RentalProperty>("RentalProperties");
+            _userManager = userManager;
         }
 
         [HttpGet]
-        [Route("Search")]
-        //[Authorize(Roles = "ADMIN,LANDLORD,TENANT")]
-        public async Task<IActionResult> GetProperty([FromQuery] PropertySearchDto searchDto)
+        public async Task<ActionResult<IEnumerable<RentalPropertyDto>>> GetRentalProperties()
         {
-            try
+            var rentalProperties = await _rentalProperties.Find(rp => true).ToListAsync();
+            var rentalPropertyDTOs = rentalProperties.Select(rp => new RentalPropertyDto
             {
-                var filterBuilder = Builders<RentalProperty>.Filter.Empty;
-
-                // Apply search criteria based on the provided searchDto
-                if (!string.IsNullOrEmpty(searchDto.Type))
+                Id = rp.Id,
+                UserId = rp.UserId,
+                Title = rp.Title,
+                Description = rp.Description,
+                Address = rp.Address,
+                Price = rp.Price,
+                Type = rp.Type,
+                Status = rp.Status,
+                CreatedAt = rp.CreatedAt,
+                UpdatedAt = rp.UpdatedAt,
+                Ratings = rp.Ratings.Select(r => new RatingDto
                 {
-                    filterBuilder &= Builders<RentalProperty>.Filter.Eq(property => property.Type, searchDto.Type);
-                }
+                    Id = r.Id,
+                    UserId = r.UserId,
+                    RatingValue = r.RatingValue,
+                    Comment = r.Comment,
+                    CreatedAt = r.CreatedAt,
+                    UpdatedAt = r.UpdatedAt
+                }).ToList()
 
-                if (!string.IsNullOrEmpty(searchDto.Name))
-                {
-                    filterBuilder &= Builders<RentalProperty>.Filter.Regex(property => property.Name, new BsonRegularExpression(searchDto.Name, "i"));
-                }
+            }).ToList();
 
-                if (searchDto.MinPrice.HasValue)
-                {
-                    filterBuilder &= Builders<RentalProperty>.Filter.Gte(property => property.Price, searchDto.MinPrice.Value);
-                }
-
-                if (searchDto.MaxPrice.HasValue)
-                {
-                    filterBuilder &= Builders<RentalProperty>.Filter.Lte(property => property.Price, searchDto.MaxPrice.Value);
-                }
-
-                // Execute the filtered query
-                var propertyList = await _propertyCollection.Find(filterBuilder).ToListAsync();
-                return Ok(propertyList);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal Server Error: {ex.Message}");
-            }
+            return Ok(rentalPropertyDTOs);
         }
-
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProperty(string id)
+        public async Task<ActionResult<RentalPropertyDto>> GetRentalProperty(string id)
         {
-            try
+            var rentalProperty = await _rentalProperties.Find(rp => rp.Id == id).FirstOrDefaultAsync();
+
+            if (rentalProperty == null)
             {
-                var property = await _propertyCollection.Find(p => p.Id == id).FirstOrDefaultAsync();
-                if (property == null)
+                return NotFound();
+            }
+
+            // Fetch the user
+            var user = await _userManager.FindByIdAsync(rentalProperty.UserId);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            var rentalPropertyDTO = new RentalPropertyDto
+            {
+                Id = rentalProperty.Id,
+                UserId = rentalProperty.UserId,
+                UserName = user.UserName,
+                FullName = user.FullName,
+                Title = rentalProperty.Title,
+                Description = rentalProperty.Description,
+                Address = rentalProperty.Address,
+                Price = rentalProperty.Price,
+                Type = rentalProperty.Type,
+                Status = rentalProperty.Status,
+                CreatedAt = rentalProperty.CreatedAt,
+                UpdatedAt = rentalProperty.UpdatedAt,
+                Ratings = rentalProperty.Ratings.Select(r => new RatingDto
                 {
-                    return NotFound("Property not found");
-                }
-                return Ok(property);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal Server Error: {ex.Message}");
-            }
+                    Id = r.Id,
+                    UserId = r.UserId,
+                    RatingValue = r.RatingValue,
+                    Comment = r.Comment,
+                    CreatedAt = r.CreatedAt,
+                    UpdatedAt = r.UpdatedAt
+                }).ToList()
+            };
+
+            return Ok(rentalPropertyDTO);
         }
 
-
-        [HttpDelete("{id}")]
-        //[Authorize(Roles = "ADMIN,LANDLORD")]
-        public async Task<IActionResult> DeleteProperty(string id)
+        [HttpPost]
+        public async Task<ActionResult<RentalPropertyDto>> CreateRentalProperty([FromBody] CreateRentalPropertyDto createRentalPropertyDTO)
         {
-            try
+            var rentalProperty = new RentalProperty
             {
-                await _propertyCollection.DeleteOneAsync(property => property.Id == id);
-                return Ok("Property deleted successfully");
-            }
-            catch (Exception ex)
+                UserId = createRentalPropertyDTO.UserId,
+                Title = createRentalPropertyDTO.Title,
+                Description = createRentalPropertyDTO.Description,
+                Address = createRentalPropertyDTO.Address,
+                Price = createRentalPropertyDTO.Price,
+                Type = createRentalPropertyDTO.Type, 
+                ImageUrl = createRentalPropertyDTO.ImageUrl,
+                Status = createRentalPropertyDTO.Status
+
+            };
+
+            await _rentalProperties.InsertOneAsync(rentalProperty);
+
+            var rentalPropertyDTO = new RentalPropertyDto
             {
-                return StatusCode(500, $"Internal Server Error: {ex.Message}");
-            }
+                Id = rentalProperty.Id,
+                UserId = rentalProperty.UserId,
+                Title = rentalProperty.Title,
+                Description = rentalProperty.Description,
+                Address = rentalProperty.Address,
+                Price = rentalProperty.Price,
+                Type = rentalProperty.Type,
+                Status = rentalProperty.Status,
+                CreatedAt = rentalProperty.CreatedAt,
+                UpdatedAt = rentalProperty.UpdatedAt,
+                Ratings = new List<RatingDto>()
+            };
+
+            return CreatedAtAction(nameof(GetRentalProperty), new { id = rentalPropertyDTO.Id }, rentalPropertyDTO);
         }
 
         [HttpPut("{id}")]
-        //[Authorize(Roles = "ADMIN,LANDLORD")]
-        public async Task<IActionResult> UpdateProperty(string id, [FromBody] RentalRequest request)
+        public async Task<IActionResult> UpdateRentalProperty(string id, [FromBody] UpdateRentalPropertyDto updateRentalPropertyDTO)
         {
-            try
-            {
-                var existingProperty = await _propertyCollection.FindOneAndUpdateAsync(
-                    Builders<RentalProperty>.Filter.Eq(property => property.Id, id),
-                    Builders<RentalProperty>.Update
-                        .Set(property => property.Name, request.Name)
-                        .Set(property => property.Description, request.Description)
-                        .Set(property => property.Price, request.Price)
-                        .Set(property => property.Photos, request.Photos)
-                        .Set(property => property.Latitude, request.Latitude)
-                        .Set(property => property.Longitude, request.Longitude)
-                );
+            var rentalProperty = await _rentalProperties.Find(rp => rp.Id == id).FirstOrDefaultAsync();
 
-                if (existingProperty == null)
-                {
-                    return NotFound("Property not found");
-                }
-
-                return Ok("Property updated successfully");
-            }
-            catch (Exception ex)
+            if (rentalProperty == null)
             {
-                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+                return NotFound();
             }
+
+            rentalProperty.Title = updateRentalPropertyDTO.Title;
+            rentalProperty.Description = updateRentalPropertyDTO.Description;
+            rentalProperty.Address = updateRentalPropertyDTO.Address;
+            rentalProperty.Price = updateRentalPropertyDTO.Price;
+            rentalProperty.Status = updateRentalPropertyDTO.Status;
+            rentalProperty.Type = updateRentalPropertyDTO.Type;
+            rentalProperty.UpdatedAt = DateTime.UtcNow;
+            
+
+            await _rentalProperties.ReplaceOneAsync(rp => rp.Id == id, rentalProperty);
+
+            return NoContent();
         }
 
-        [HttpGet]
-        [Route("List")]
-        public async Task<IActionResult> ListAllProperties()
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRentalProperty(string id)
         {
-            try
+            var result = await _rentalProperties.DeleteOneAsync(rp => rp.Id == id);
+
+            if (result.DeletedCount == 0)
             {
-                var properties = await _propertyCollection.Find(_ => true).ToListAsync();
-                return Ok(properties);
+                return NotFound();
             }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal Server Error: {ex.Message}");
-            }
+
+            return NoContent();
         }
 
+        [HttpPost("{id}/ratings")]
+        public async Task<ActionResult<RatingDto>> AddRating(string id, [FromBody] CreateRatingDto createRatingDTO)
+        {
+            var rentalProperty = await _rentalProperties.Find(rp => rp.Id == id).FirstOrDefaultAsync();
 
+            if (rentalProperty == null)
+            {
+                return NotFound();
+            }
 
+            var rating = new Rating
+            {
+                UserId = createRatingDTO.UserId,
+                RatingValue = createRatingDTO.RatingValue,
+                
+            };
 
-        //[HttpGet]
-        //[Route("search")]
-        //public async Task<IActionResult> SearchProperties([FromQuery] string name, [FromQuery] string description)
-        //{
-        //    try
-        //    {
-        //        var filter = Builders<RentalProperty>.Filter.Empty;
+            rentalProperty.Ratings.Add(rating);
+            rentalProperty.UpdatedAt = DateTime.UtcNow;
 
-        //        if (!string.IsNullOrEmpty(name))
-        //        {
-        //            filter &= Builders<RentalProperty>.Filter.Regex(property => property.Name, new BsonRegularExpression(name, "i"));
-        //        }
+            await _rentalProperties.ReplaceOneAsync(rp => rp.Id == id, rentalProperty);
 
-        //        if (!string.IsNullOrEmpty(description))
-        //        {
-        //            filter &= Builders<RentalProperty>.Filter.Regex(property => property.Description, new BsonRegularExpression(description, "i"));
-        //        }
+            var ratingDTO = new RatingDto
+            {
+                Id = rating.Id,
+                UserId = rating.UserId,
+                RatingValue = rating.RatingValue,
+                CreatedAt = rating.CreatedAt,
+                UpdatedAt = rating.UpdatedAt
+            };
 
-        //        var properties = await _propertyCollection.Find(filter).ToListAsync();
-
-        //        return Ok(properties);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"Internal Server Error: {ex.Message}");
-        //    }
-        //}
-
-
-
+            return CreatedAtAction(nameof(GetRentalProperty), new { id = rentalProperty.Id }, ratingDTO);
+        }
     }
 }

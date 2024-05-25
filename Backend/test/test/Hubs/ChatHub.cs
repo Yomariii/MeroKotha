@@ -1,38 +1,68 @@
-﻿using System.Text.RegularExpressions;
+﻿using Microsoft.AspNetCore.SignalR;
+using System.Collections.Concurrent;
+using test.Hubs;
+using test.Hubs.Clients;
 using test.Models;
-using Microsoft.AspNetCore.SignalR;
-using System.Threading.Tasks;
-using test.DataService;
-namespace test.Hubs
+
+public class ChatHub : Hub<IChatClient>
 {
-    public class ChatHub : Hub
+    private readonly ChatContext _context;
+    private static ConcurrentDictionary<string, string> ConnectedUsers = new ConcurrentDictionary<string, string>();
+
+    public ChatHub(ChatContext context)
     {
-        private readonly SharedDb _shared;
+        _context = context;
+    }
 
-        public ChatHub(SharedDb shared) => _shared = shared;
+    public async Task JoinChat(string userId)
+    {
+        // Add the user to the connected users dictionary
+        ConnectedUsers[Context.ConnectionId] = userId;
 
+        // Optionally notify all users about the updated user list
+        await NotifyUsersUpdated();
+    }
 
-        public async Task JoinChat(UserConnection conn)
+    public async Task SendMessage(string receiverId, string message)
+    {
+        // Get the connection ID of the receiver
+        string receiverConnectionId = ConnectedUsers.FirstOrDefault(x => x.Value == receiverId).Key;
+
+        if (receiverConnectionId != null)
         {
-            await Clients.All.SendAsync("ReceiveMessage", "admin", $"{conn.Username} has joined.");
-        }
+            // Send the message to the receiver
+            string senderId = ConnectedUsers[Context.ConnectionId];
 
-        public async Task JoinSpecificChatRoom(UserConnection conn)
-        {
-            await Groups.AddToGroupAsync(Context.ConnectionId, conn.ChatRoom);
-
-            _shared.connections[Context.ConnectionId] = conn;
-
-            await Clients.Group(conn.ChatRoom).SendAsync("ReceiveMessage", "admin", $"{conn.Username} has joined {conn.ChatRoom}.");
-        }
-
-        public async Task SendMessage(string msg)
-        {
-            if (_shared.connections.TryGetValue(Context.ConnectionId, out UserConnection conn))
+            // Save the message to the database
+            var chatMessage = new ChatMessage
             {
-                await Clients.Group(conn.ChatRoom).SendAsync("ReceiveSpecificMessage", conn.Username, msg);
-            }
+                SenderId = senderId,
+                ReceiverId = receiverId,
+                Message = message,
+                Timestamp = DateTime.Now
+            };
+
+            await _context.ChatMessages.InsertOneAsync(chatMessage);
+
+            await Clients.Client(receiverConnectionId).ReceiveMessage(senderId, receiverId, message);
+        }
+    }
+
+    public override async Task OnDisconnectedAsync(Exception exception)
+    {
+        // Remove the user from the connected users dictionary
+        if (ConnectedUsers.TryRemove(Context.ConnectionId, out string userId))
+        {
+            // Notify other users that the user has left
+            await NotifyUsersUpdated();
         }
 
+        await base.OnDisconnectedAsync(exception);
+    }
+
+    private async Task NotifyUsersUpdated()
+    {
+        var users = ConnectedUsers.Values.ToArray();
+        await Clients.All.ReceiveUsersInRoom(users);
     }
 }

@@ -1,38 +1,25 @@
 import { useNavigate } from "react-router-dom";
 import Banner from "../banner";
-import { Link } from "react-router-dom";
-import Navbar from "../navbar";
-import Slider from "../slider";
+import Navbar from "../Navbar";
+import Slider from "../Slider";
+import { AuthProvider } from "../auth";
+
+import React from "react";
+import CardTwo from "../CardTwo";
 
 export default function Home() {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // Clear the token from local storage
-    localStorage.removeItem("token");
-    // Redirect to the login page
-    navigate("/login");
-  };
-
-  const handleEditProfile = () => {
-    // Redirect to the profile edit page
-    navigate("/edit-profile");
-  };
-
   return (
     <div>
-      {/* <Slider /> */}
-      <Navbar />
-      <Banner />
-      <button onClick={handleLogout}>Logout</button>
-      <br />
-      <button onClick={handleEditProfile}>Edit Profile</button>
-      <br />
-      <Link to="/login">Login</Link>
-      <br />
-      <Link to="/register">
-        <img src="/logo.png" alt="Register" />
-      </Link>
+      <AuthProvider>
+        <Navbar />
+        {/* <Banner /> */}
+        <Slider />
+        <CardTwo />
+
+        {/* use the Link component and navigate function as needed */}
+      </AuthProvider>
     </div>
   );
 }

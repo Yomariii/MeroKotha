@@ -54,6 +54,10 @@
               "target": "Package",
               "version": "[3.1.2, )"
             },
+            "BenchmarkDotNet": {
+              "target": "Package",
+              "version": "[0.13.12, )"
+            },
             "FluentEmail.Core": {
               "target": "Package",
               "version": "[3.0.2, )"
@@ -74,6 +78,10 @@
               "target": "Package",
               "version": "[8.0.3, )"
             },
+            "Microsoft.Exchange.WebServices": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.IdentityModel.Tokens": {
               "target": "Package",
               "version": "[7.4.0, )"
@@ -89,6 +97,10 @@
             "MongoDB.Driver.Core": {
               "target": "Package",
               "version": "[2.24.0, )"
+            },
+            "PusherServer": {
+              "target": "Package",
+              "version": "[5.0.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -114,7 +126,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

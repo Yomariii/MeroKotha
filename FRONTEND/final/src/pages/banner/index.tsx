@@ -1,6 +1,10 @@
 import React from "react";
 
-function Banner() {
+interface BannerProps {
+  // Add props if needed
+}
+
+const Banner: React.FC<BannerProps> = (props) => {
   return (
     <>
       <div className="container-fluid">
@@ -8,22 +12,22 @@ function Banner() {
           <div className="carousel-inner">
             <div className="carousel-item active">
               <img
-                src="https://www.nepalhomes.com/_next/image?url=https%3A%2F%2Fwww.nepalhomes.com%2Fpublic%2Ffiles%2F154CB286FA33469-Web-banner%20(1).png&w=1920&q=75"
-                className="d-block w-100"
+                src="https://www.vecteezy.com/vector-art/22277165-house-interior-with-kitchen-living-room-hall"
+                className=" avash  w-100 h-50" // Adjusted height to h-50
                 alt="..."
               />
             </div>
             <div className="carousel-item">
               <img
                 src="https://www.nepalhomes.com/_next/image?url=https%3A%2F%2Fwww.nepalhomes.com%2Fpublic%2Ffiles%2F154CB286FA33469-Web-banner%20(1).png&w=1920&q=75"
-                className="d-block w-100"
+                className=" avash w-100 h-50" // Adjusted height to h-50
                 alt="..."
               />
             </div>
             <div className="carousel-item">
               <img
                 src="https://www.nepalhomes.com/_next/image?url=https%3A%2F%2Fwww.nepalhomes.com%2Fpublic%2Ffiles%2F154CB286FA33469-Web-banner%20(1).png&w=1920&q=75"
-                className="d-block w-100"
+                className="avash w-100 h-50" // Adjusted height to h-50
                 alt="..."
               />
             </div>
@@ -52,6 +56,6 @@ function Banner() {
       {/*  for card  */}
     </>
   );
-}
+};
 
 export default Banner;
