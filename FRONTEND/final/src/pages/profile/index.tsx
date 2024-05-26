@@ -9,9 +9,9 @@ interface UserProfile {
   email: string;
   createdOn: string;
   profilePictureUrl?: string;
-  fullName: string; // Added fullName property
-  phoneNumber: string; // Added phoneNumber property
-  address: string; // Added address property
+  fullName: string;
+  phoneNumber: string;
+  address: string;
 }
 
 const Profile: React.FC = () => {

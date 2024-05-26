@@ -34,8 +34,8 @@ namespace test.Models
         //[BsonElement("status")]
         //public string Status { get; set; } = "available";
 
-        [BsonElement("imageurl")]
-        public string ImageUrl { get; set; }
+        [BsonElement("imageUrls")]
+        public List<string> ImageUrls { get; set; } = new List<string>();
 
         [BsonRepresentation(BsonType.String)]
         [BsonElement("status")]

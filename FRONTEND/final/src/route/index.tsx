@@ -10,7 +10,7 @@ import PropertyListings from "../pages/propertylisting";
 import Itinerary from "../pages/Itinerary";
 import AdminControls from "../pages/AdminControl";
 import Profile from "../pages/profile";
-import PropertyDetails from "../pages/PropertyDetails";
+// import PropertyDetails from "../pages/PropertyDetails";
 import ContactMessage from "../pages/Complains";
 import EditProfile from "../pages/editprofile";
 import Test from "../pages/test";

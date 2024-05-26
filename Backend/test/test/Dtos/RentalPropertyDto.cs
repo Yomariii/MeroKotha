@@ -15,7 +15,9 @@ namespace test.Dtos
         public DateTime UpdatedAt { get; set; }
         public string UserName { get; set; }
         public string FullName { get; set; }
-        public string ImageUrl { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+        public List<string> ImageUrls { get; set; } = new List<string>();
         public PropertyStatus Status { get; set; }
 
         public List<RatingDto> Ratings { get; set; } = new List<RatingDto>();

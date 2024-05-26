@@ -35,6 +35,7 @@ namespace test.Controllers
                 Status = rp.Status,
                 CreatedAt = rp.CreatedAt,
                 UpdatedAt = rp.UpdatedAt,
+                ImageUrls = rp.ImageUrls,
                 Ratings = rp.Ratings.Select(r => new RatingDto
                 {
                     Id = r.Id,
@@ -50,47 +51,49 @@ namespace test.Controllers
             return Ok(rentalPropertyDTOs);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<RentalPropertyDto>> GetRentalProperty(string id)
-        {
-            var rentalProperty = await _rentalProperties.Find(rp => rp.Id == id).FirstOrDefaultAsync();
-
-            if (rentalProperty == null)
+            [HttpGet("{id}")]
+            public async Task<ActionResult<RentalPropertyDto>> GetRentalProperty(string id)
             {
-                return NotFound();
-            }
+                var rentalProperty = await _rentalProperties.Find(rp => rp.Id == id).FirstOrDefaultAsync();
 
-            // Fetch the user
-            var user = await _userManager.FindByIdAsync(rentalProperty.UserId);
-            if (user == null)
-            {
-                return NotFound("User not found");
-            }
-
-            var rentalPropertyDTO = new RentalPropertyDto
-            {
-                Id = rentalProperty.Id,
-                UserId = rentalProperty.UserId,
-                UserName = user.UserName,
-                FullName = user.FullName,
-                Title = rentalProperty.Title,
-                Description = rentalProperty.Description,
-                Address = rentalProperty.Address,
-                Price = rentalProperty.Price,
-                Type = rentalProperty.Type,
-                Status = rentalProperty.Status,
-                CreatedAt = rentalProperty.CreatedAt,
-                UpdatedAt = rentalProperty.UpdatedAt,
-                Ratings = rentalProperty.Ratings.Select(r => new RatingDto
+                if (rentalProperty == null)
                 {
-                    Id = r.Id,
-                    UserId = r.UserId,
-                    RatingValue = r.RatingValue,
-                    Comment = r.Comment,
-                    CreatedAt = r.CreatedAt,
-                    UpdatedAt = r.UpdatedAt
-                }).ToList()
-            };
+                    return NotFound();
+                }
+
+                // Fetch the user
+                var user = await _userManager.FindByIdAsync(rentalProperty.UserId);
+                if (user == null)
+                {
+                    return NotFound("User not found");
+                }
+
+                var rentalPropertyDTO = new RentalPropertyDto
+                {
+                    Id = rentalProperty.Id,
+                    UserId = rentalProperty.UserId,
+                    UserName = user.UserName,
+                    FullName = user.FullName,
+                    PhoneNumber = user.PhoneNumber,
+                    Title = rentalProperty.Title,
+                    Description = rentalProperty.Description,
+                    Address = rentalProperty.Address,
+                    Price = rentalProperty.Price,
+                    Type = rentalProperty.Type,
+                    Status = rentalProperty.Status,
+                    ImageUrls = rentalProperty.ImageUrls,
+                    CreatedAt = rentalProperty.CreatedAt,
+                    UpdatedAt = rentalProperty.UpdatedAt,
+                    Ratings = rentalProperty.Ratings.Select(r => new RatingDto
+                    {
+                        Id = r.Id,
+                        UserId = r.UserId,
+                        RatingValue = r.RatingValue,
+                        Comment = r.Comment,
+                        CreatedAt = r.CreatedAt,
+                        UpdatedAt = r.UpdatedAt
+                    }).ToList()
+                };
 
             return Ok(rentalPropertyDTO);
         }
@@ -106,7 +109,7 @@ namespace test.Controllers
                 Address = createRentalPropertyDTO.Address,
                 Price = createRentalPropertyDTO.Price,
                 Type = createRentalPropertyDTO.Type, 
-                ImageUrl = createRentalPropertyDTO.ImageUrl,
+                ImageUrls = createRentalPropertyDTO.ImageUrls,
                 Status = createRentalPropertyDTO.Status
 
             };
@@ -147,6 +150,7 @@ namespace test.Controllers
             rentalProperty.Price = updateRentalPropertyDTO.Price;
             rentalProperty.Status = updateRentalPropertyDTO.Status;
             rentalProperty.Type = updateRentalPropertyDTO.Type;
+            rentalProperty.ImageUrls = updateRentalPropertyDTO.ImageUrls;
             rentalProperty.UpdatedAt = DateTime.UtcNow;
             
 

@@ -6,8 +6,8 @@ interface PropertyDetail {
   label: string;
 }
 
-const PropertyDetails: React.FC = () => {
-  const propertyDetails: PropertyDetail[] = [
+const Test: React.FC = () => {
+  const Test: PropertyDetail[] = [
     // {
     //   icon: "path/to/icon1.svg",
     //   label: "4 Bedrooms, 3 Bathrooms",
@@ -65,7 +65,7 @@ const PropertyDetails: React.FC = () => {
           <p className="text-gray-700 mb-6">Property Description</p>
           <p className="text-2xl font-bold text-gray-800 mb-4">$500,000</p>
           <div className="flex flex-col space-y-4">
-            {propertyDetails.map((detail, index) => (
+            {Test.map((detail, index) => (
               <div key={index} className="flex items-center">
                 <img src={detail.icon} alt="Icon" className="w-6 h-6 mr-4" />
                 <p>{detail.label}</p>
@@ -97,4 +97,4 @@ const PropertyDetails: React.FC = () => {
   );
 };
 
-export default PropertyDetails;
+export default Test;
